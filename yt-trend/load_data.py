@@ -24,12 +24,16 @@ for _, row in df.iterrows():
     values = (
         row['void_id'], row['title'], row['channel_title'], row['category_name'],
         row['published_at'], row['view_count'], row['like_count'],
-        row['comment_count'], row['engagement_ratio'])
+        row['comment_count'], row['engagement_ratio']
+    )
 
+    # ✅ Move execute() inside the loop
+    cursor.execute(sql, values)
 
-cursor.execute(sql, values)
+# ✅ Commit once after all rows are inserted
 connection.commit()
+
 cursor.close()
 connection.close()
 
-print("✅ Data loaded into MySQL successfully!")
+print("✅ All rows from cleaned_data.csv have been loaded into MySQL successfully!")
